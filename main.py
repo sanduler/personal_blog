@@ -9,24 +9,29 @@ url_blog = 'https://api.npoint.io/16660bc83ea958e4eea4'
 posts = requests.get(url_blog).json()
 
 @app.route('/')
-@app.route('/index.html')
+@app.route('/home')
 def index_page():
     return render_template('index.html', all_posts=posts)
 
 
-@app.route('/about.html')
+@app.route('/about')
 def about_page():
     return render_template('about.html')
 
 
-@app.route('/contact.html')
+@app.route('/contact')
 def contact_page():
     return render_template('contact.html')
 
 
-@app.route('/post.html')
-def post_page():
-    return render_template('post.html')
+@app.route('/post/<int:index>')
+def post_page(index):
+    requested_post = None
+    for blog_post in posts:
+        if blog_post["id"] == index:
+            requested_post = blog_post
+            # print(requested_post)
+    return render_template('post.html', post=requested_post)
 
 
 if __name__ == '__main__':
