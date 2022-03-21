@@ -7,7 +7,8 @@ from flask import Flask, render_template
 app = Flask(__name__)
 url_blog = 'https://api.npoint.io/16660bc83ea958e4eea4'
 posts = requests.get(url_blog).json()
-
+# print(posts[0]['id'])
+# print(posts[1]["id"])
 @app.route('/')
 @app.route('/index.html')
 def index_page():
@@ -24,9 +25,14 @@ def contact_page():
     return render_template('contact.html')
 
 
-@app.route('/post.html')
-def post_page():
-    return render_template('post.html')
+@app.route('/post/<int:index>')
+def post_page(index):
+    requested_post = None
+    for blog_post in posts:
+        if blog_post["id"] == index:
+            requested_post = blog_post
+            # print(requested_post)
+    return render_template('post.html', post=requested_post)
 
 
 if __name__ == '__main__':
