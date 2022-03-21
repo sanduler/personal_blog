@@ -7,20 +7,19 @@ from flask import Flask, render_template
 app = Flask(__name__)
 url_blog = 'https://api.npoint.io/16660bc83ea958e4eea4'
 posts = requests.get(url_blog).json()
-# print(posts[0]['id'])
-# print(posts[1]["id"])
+
 @app.route('/')
-@app.route('/index.html')
+@app.route('/home')
 def index_page():
     return render_template('index.html', all_posts=posts)
 
 
-@app.route('/about.html')
+@app.route('/about')
 def about_page():
     return render_template('about.html')
 
 
-@app.route('/contact.html')
+@app.route('/contact')
 def contact_page():
     return render_template('contact.html')
 
