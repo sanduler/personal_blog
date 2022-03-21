@@ -22,9 +22,11 @@ def about_page():
 def contact_page():
     return render_template('contact.html')
 
+
 @app.route('/post.html')
 def post_page():
     return render_template('post.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
